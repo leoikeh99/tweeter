@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Fragment } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import NavBar from "./components/layout/NavBar";
+import Login from "./components/auth/Login";
+import Register from "./components/auth/Register";
+import Home from "./components/main/Home";
+import { ThemeProvider } from "styled-components";
+import "./css/main.css";
 
 function App() {
+  const theme = {
+    font1: "Noto Sans",
+    font2: "Poppins",
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Fragment>
+              <NavBar />
+              <Route exact path="/" component={Home} />
+            </Fragment>
+          </Switch>
+        </Router>
+      </ThemeProvider>
+    </Fragment>
   );
 }
 
