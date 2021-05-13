@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CenterWrapper,
   LoginContainer,
@@ -11,24 +11,36 @@ import {
   Alert,
   Text,
   Loader,
-} from "../StyledComponents";
+} from "../styled_components/components";
 import { RiLoginBoxLine as LoginIcon, RiLoader3Fill } from "react-icons/ri";
 import { FaEnvelope, FaLock, FaTimes } from "react-icons/fa";
 import { connect } from "react-redux";
 import { authUser, clearAlert } from "../../actions/authActions";
 import logo3 from "../../images/logo3.svg";
 
-const Login = ({ auth: { loader, alert }, authUser, clearAlert }) => {
+const Login = ({
+  auth: { loader, alert, token },
+  authUser,
+  clearAlert,
+  history,
+}) => {
   const [data, setData] = useState({ email: "", password: "" });
   const submit = (e) => {
     e.preventDefault();
     authUser("login", data);
   };
+
+  useEffect(() => {
+    if (token) {
+      history.push("/");
+    }
+  }, [token, history]);
+
   return (
     <CenterWrapper>
       <LoginContainer>
         <img src={logo3} alt="" />
-        <Header3 color={"grey"}>Login to Tweeter</Header3>
+        <Header3 color={"text4"}>Login to Tweeter</Header3>
         <div style={{ marginBottom: "5px" }}></div>
         {alert && alert.type === "error" && (
           <Alert>

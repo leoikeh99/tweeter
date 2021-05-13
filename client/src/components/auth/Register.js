@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   CenterWrapper,
   LoginContainer,
@@ -11,19 +11,31 @@ import {
   Alert,
   Text,
   Loader,
-} from "../StyledComponents";
+} from "../styled_components/components";
 import { RiLoginBoxLine as LoginIcon, RiLoader3Fill } from "react-icons/ri";
 import { FaRegUserCircle, FaEnvelope, FaLock, FaTimes } from "react-icons/fa";
 import { connect } from "react-redux";
 import { authUser, clearAlert } from "../../actions/authActions";
 import logo3 from "../../images/logo3.svg";
 
-const Register = ({ auth: { loader, alert }, authUser, clearAlert }) => {
+const Register = ({
+  auth: { loader, alert, token },
+  authUser,
+  clearAlert,
+  history,
+}) => {
   const [data, setData] = useState({ username: "", email: "", password: "" });
   const submit = (e) => {
     e.preventDefault();
     authUser("register", data);
   };
+
+  useEffect(() => {
+    if (token) {
+      history.push("/");
+    }
+  }, [token, history]);
+
   return (
     <CenterWrapper>
       <LoginContainer>

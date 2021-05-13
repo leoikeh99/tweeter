@@ -4,6 +4,8 @@ import NavBar from "./components/layout/NavBar";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Home from "./components/main/Home";
+import Explore from "./components/main/Explore";
+import Bookmarks from "./components/main/Bookmarks";
 import { ThemeProvider } from "styled-components";
 import "./css/main.css";
 import store from "./store";
@@ -17,8 +19,10 @@ function App() {
       primary: "#2f80ed",
       text1: "#000",
       text2: "#4F4F4F",
-      text3: "##828282",
-      black: "#000",
+      text3: "#828282",
+      text4: "#333",
+      text5: "#BDBDBD",
+      text6: "#999",
       white: "#fff",
       danger: "#ef5350",
     },
@@ -33,6 +37,8 @@ function App() {
             <Fragment>
               <NavBar />
               <Route exact path="/" component={Home} />
+              <Route exact path="/explore" component={Explore} />
+              <Route exact path="/bookmarks" component={Bookmarks} />
             </Fragment>
           </Switch>
         </Router>

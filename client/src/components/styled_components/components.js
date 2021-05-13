@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 
 export const Text = styled.p`
   color: ${(props) =>
-    props.color && props.color === "white"
-      ? props.theme.color.white
-      : props.theme.color.text1};
+    props.color ? props.theme.color[props.color] : props.theme.color.text1};
   font-family: Noto Sans;
+  font-weight: ${(props) => props.weight && props.weight};
+  margin: ${(props) => props.margin && props.margin}px;
 `;
 
 export const CenterWrapper = styled.div`
@@ -24,15 +24,27 @@ export const FlexGap = styled.div`
   gap: ${(props) => (props.gap ? props.gap : 10)}px;
 `;
 
+export const SpaceOut = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const Container = styled.div`
+  max-width: 90%;
+  margin: auto;
+`;
+
 export const LoginContainer = styled.div`
   padding: 20px;
-  border: 2px solid #2f80ed;
+  border: 2px solid ${(props) => props.theme.color.primary};
   border-radius: 8px;
   width: 400px;
 `;
 
-export const Label = styled.div`
-  color: #333;
+export const Label = styled.label`
+  color: ${(props) =>
+    props.color ? props.theme.color[props.color] : props.theme.color.text4};
   font-family: ${(props) => props.theme.font2};
   font-weight: 600;
 `;
@@ -40,7 +52,7 @@ export const Label = styled.div`
 export const Input = styled.div`
   padding: 0 10px;
   width: 100%;
-  border: 2px solid #999;
+  border: 2px solid ${(props) => props.theme.color.text6};
   box-sizing: border-box;
   border-radius: 4px;
   display: flex;
@@ -49,7 +61,7 @@ export const Input = styled.div`
   input {
     background: transparent;
     border: 0;
-    color: #333;
+    color: ${(props) => props.theme.color.text4};
     box-sizing: border-box;
     height: 45px;
     width: 90%;
@@ -60,18 +72,18 @@ export const Input = styled.div`
     }
   }
   svg {
-    color: #777;
+    color: ${(props) => props.theme.color.text6};
     font-size: 1.2rem;
   }
 
   &:focus-within {
-    border: 2px solid #2f80ed;
+    border: 2px solid ${(props) => props.theme.color.primary};
   }
 `;
 
 export const Button = styled.button`
   padding: 12px 25px;
-  background: #2f80ed;
+  background: ${(props) => props.theme.color.primary};
   color: #fff;
   border: 0;
   border-radius: 4px;
@@ -89,66 +101,42 @@ export const Button = styled.button`
 
 export const Header1 = styled.h1`
   color: ${(props) =>
-    props.color && props.color === "primary"
-      ? "#2f80ed"
-      : props.color && props.color === "grey"
-      ? "#333"
-      : "#000"};
+    props.color ? props.theme.color[props.color] : props.theme.color.text1};
   font-family: ${(props) => props.theme.font2};
   margin: 0;
 `;
 
 export const Header2 = styled.h2`
   color: ${(props) =>
-    props.color && props.color === "primary"
-      ? "#2f80ed"
-      : props.color && props.color === "grey"
-      ? "#333"
-      : "#000"};
+    props.color ? props.theme.color[props.color] : props.theme.color.text1};
   font-family: ${(props) => props.theme.font2};
   margin: 0;
 `;
 
 export const Header3 = styled.h3`
   color: ${(props) =>
-    props.color && props.color === "primary"
-      ? "#2f80ed"
-      : props.color && props.color === "grey"
-      ? "#333"
-      : "#000"};
+    props.color ? props.theme.color[props.color] : props.theme.color.text1};
   font-family: ${(props) => props.theme.font2};
   margin: 0;
 `;
 
 export const Header4 = styled.h4`
   color: ${(props) =>
-    props.color && props.color === "primary"
-      ? "#2f80ed"
-      : props.color && props.color === "grey"
-      ? "#333"
-      : "#000"};
+    props.color ? props.theme.color[props.color] : props.theme.color.text1};
   font-family: ${(props) => props.theme.font2};
   margin: 0;
 `;
 
 export const Header5 = styled.h5`
   color: ${(props) =>
-    props.color && props.color === "primary"
-      ? "#2f80ed"
-      : props.color && props.color === "grey"
-      ? "#333"
-      : "#000"};
+    props.color ? props.theme.color[props.color] : props.theme.color.text1};
   font-family: ${(props) => props.theme.font2};
   margin: 0;
 `;
 
 export const Header6 = styled.h6`
   color: ${(props) =>
-    props.color && props.color === "primary"
-      ? "#2f80ed"
-      : props.color && props.color === "grey"
-      ? "#333"
-      : "#000"};
+    props.color ? props.theme.color[props.color] : props.theme.color.text1};
   font-family: ${(props) => props.theme.font2};
   margin: 0;
 `;
@@ -156,11 +144,11 @@ export const Header6 = styled.h6`
 export const StyledLink = styled(Link)`
   font-family: ${(props) => props.theme.font1};
   text-decoration: none;
-  color: #2f80ed;
+  color: ${(props) => props.theme.color.primary};
 `;
 
 export const Small = styled.small`
-  color: #333;
+  color: ${(props) => props.theme.color.text4};
   font-family: ${(props) => props.theme.font1};
 `;
 
@@ -190,5 +178,44 @@ export const Loader = styled.span`
   justify-content: center;
   svg {
     animation: ${spin} 1s linear infinite;
+  }
+`;
+
+export const MainNav = styled.ul`
+  margin: 0;
+  padding: 0;
+  display: flex;
+  font-family: poppins;
+  padding: 20px 0;
+  gap: 15px;
+  li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    position: relative;
+    padding: 0px 15px;
+
+    a {
+      color: ${(props) => props.theme.color.text3};
+      font-weight: 500;
+    }
+
+    &:nth-child(${(props) => props.active}) {
+      a {
+        color: ${(props) => props.theme.color.primary};
+        font-weight: 600;
+      }
+      span {
+        position: absolute;
+        bottom: -21px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: ${(props) => props.theme.color.primary};
+        border-top-right-radius: 3px;
+        border-top-left-radius: 3px;
+      }
+    }
   }
 `;
