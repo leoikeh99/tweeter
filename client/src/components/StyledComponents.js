@@ -1,5 +1,14 @@
 import styled from "styled-components";
+import { spin } from "./animations";
 import { Link } from "react-router-dom";
+
+export const Text = styled.p`
+  color: ${(props) =>
+    props.color && props.color === "white"
+      ? props.theme.color.white
+      : props.theme.color.text1};
+  font-family: Noto Sans;
+`;
 
 export const CenterWrapper = styled.div`
   display: flex;
@@ -153,4 +162,33 @@ export const StyledLink = styled(Link)`
 export const Small = styled.small`
   color: #333;
   font-family: ${(props) => props.theme.font1};
+`;
+
+export const Alert = styled.div`
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${(props) => props.theme.color.danger};
+  border-radius: 4px;
+  p {
+    width: 85%;
+    margin: 0;
+    color: #fff;
+  }
+
+  svg {
+    font-size: 1.25rem;
+    color: ${(props) => props.theme.color.white};
+    cursor: pointer;
+  }
+`;
+
+export const Loader = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    animation: ${spin} 1s linear infinite;
+  }
 `;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CenterWrapper,
   LoginContainer,
@@ -8,34 +8,70 @@ import {
   Header3,
   StyledLink,
   Small,
+  Alert,
+  Text,
+  Loader,
 } from "../StyledComponents";
-import { RiLoginBoxLine as LoginIcon } from "react-icons/ri";
-import { FaRegUserCircle, FaEnvelope, FaLock } from "react-icons/fa";
+import { RiLoginBoxLine as LoginIcon, RiLoader3Fill } from "react-icons/ri";
+import { FaEnvelope, FaLock, FaTimes } from "react-icons/fa";
+import { connect } from "react-redux";
+import { authUser, clearAlert } from "../../actions/authActions";
 import logo3 from "../../images/logo3.svg";
 
-const Login = () => {
-  const submit = (e) => e.preventDefault();
+const Login = ({ auth: { loader, alert }, authUser, clearAlert }) => {
+  const [data, setData] = useState({ email: "", password: "" });
+  const submit = (e) => {
+    e.preventDefault();
+    authUser("login", data);
+  };
   return (
     <CenterWrapper>
       <LoginContainer>
         <img src={logo3} alt="" />
         <Header3 color={"grey"}>Login to Tweeter</Header3>
+        <div style={{ marginBottom: "5px" }}></div>
+        {alert && alert.type === "error" && (
+          <Alert>
+            <Text>{alert.msg}</Text>
+            <FaTimes onClick={clearAlert} />
+          </Alert>
+        )}
+        <div style={{ marginBottom: "5px" }}></div>
         <form action="" onSubmit={submit}>
-          <br />
           <Label>Email</Label>
           <Input>
-            <input type="email" required />
+            <input
+              type="email"
+              required
+              value={data.email}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
+              name="email"
+            />
             <FaEnvelope />
           </Input>
           <br />
           <Label>Password</Label>
           <Input>
-            <input type="password" required minLength={6} />
+            <input
+              type="password"
+              required
+              minLength={6}
+              value={data.password}
+              onChange={(e) => setData({ ...data, password: e.target.value })}
+              name="password"
+            />
             <FaLock />
           </Input>
           <br />
           <Button fullWidth>
-            <LoginIcon /> LOGIN
+            {loader ? (
+              <Loader>
+                <RiLoader3Fill />
+              </Loader>
+            ) : (
+              <LoginIcon />
+            )}
+            LOGIN
           </Button>
         </form>
         <Small>
@@ -45,4 +81,7 @@ const Login = () => {
     </CenterWrapper>
   );
 };
-export default Login;
+
+const mapStateToProps = (state) => ({ auth: state.auth });
+
+export default connect(mapStateToProps, { authUser, clearAlert })(Login);

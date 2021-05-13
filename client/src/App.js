@@ -6,14 +6,25 @@ import Register from "./components/auth/Register";
 import Home from "./components/main/Home";
 import { ThemeProvider } from "styled-components";
 import "./css/main.css";
+import store from "./store";
+import { Provider } from "react-redux";
 
 function App() {
   const theme = {
     font1: "Noto Sans",
     font2: "Poppins",
+    color: {
+      primary: "#2f80ed",
+      text1: "#000",
+      text2: "#4F4F4F",
+      text3: "##828282",
+      black: "#000",
+      white: "#fff",
+      danger: "#ef5350",
+    },
   };
   return (
-    <Fragment>
+    <Provider store={store}>
       <ThemeProvider theme={theme}>
         <Router>
           <Switch>
@@ -26,7 +37,7 @@ function App() {
           </Switch>
         </Router>
       </ThemeProvider>
-    </Fragment>
+    </Provider>
   );
 }
 
