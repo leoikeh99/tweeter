@@ -7,3 +7,13 @@ export const spin = keyframes`{
         transform:rotate(360deg);
     }
 }`;
+
+export const enter = keyframes`{
+    0%{
+        opacity:0;
+        transform:translateY(-40px);
+    }100%{
+        opacity:1;
+        transform:translateY(0);
+    }
+}`;

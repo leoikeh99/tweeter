@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { spin } from "./animations";
+import { spin, enter } from "./animations";
 import { Link } from "react-router-dom";
 
 export const Text = styled.p`
@@ -7,7 +7,9 @@ export const Text = styled.p`
     props.color ? props.theme.color[props.color] : props.theme.color.text1};
   font-family: Noto Sans;
   font-weight: ${(props) => props.weight && props.weight};
-  margin: ${(props) => props.margin && props.margin}px;
+  margin: ${(props) => props.margin && props.margin};
+  font-size: ${(props) => props.size && props.size}px;
+  max-width: ${(props) => props.maxWidth && props.maxWidth}px;
 `;
 
 export const CenterWrapper = styled.div`
@@ -20,7 +22,6 @@ export const CenterWrapper = styled.div`
 
 export const FlexGap = styled.div`
   display: flex;
-  align-items: center;
   gap: ${(props) => (props.gap ? props.gap : 10)}px;
 `;
 
@@ -31,8 +32,14 @@ export const SpaceOut = styled.div`
 `;
 
 export const Container = styled.div`
-  max-width: 90%;
+  max-width: ${(props) => (props.mw ? props.mw : 90)}%;
   margin: auto;
+`;
+
+export const MainContainer = styled.div`
+  max-width: 850px;
+  margin: auto;
+  padding: 20px;
 `;
 
 export const LoginContainer = styled.div`
@@ -40,6 +47,10 @@ export const LoginContainer = styled.div`
   border: 2px solid ${(props) => props.theme.color.primary};
   border-radius: 8px;
   width: 400px;
+
+  @media screen and (max-width: 440px) {
+    border: 0;
+  }
 `;
 
 export const Label = styled.label`
@@ -58,7 +69,8 @@ export const Input = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  input {
+  input,
+  textarea {
     background: transparent;
     border: 0;
     color: ${(props) => props.theme.color.text4};
@@ -70,6 +82,13 @@ export const Input = styled.div`
     &:focus {
       outline: 0;
     }
+  }
+
+  textarea {
+    height: 87px;
+    width: 90%;
+    font: Poppins;
+    padding: 10px 0;
   }
   svg {
     color: ${(props) => props.theme.color.text6};
@@ -92,7 +111,8 @@ export const Button = styled.button`
   text-align: center;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
+  padding: ${(props) => props.padding && props.padding};
   svg {
     font-size: 1.1rem;
     margin-right: 5px;
@@ -148,7 +168,8 @@ export const StyledLink = styled(Link)`
 `;
 
 export const Small = styled.small`
-  color: ${(props) => props.theme.color.text4};
+  color: ${(props) =>
+    props.color ? props.theme.color[props.color] : props.theme.color.text4};
   font-family: ${(props) => props.theme.font1};
 `;
 
@@ -217,5 +238,229 @@ export const MainNav = styled.ul`
         border-top-left-radius: 3px;
       }
     }
+  }
+`;
+
+export const ProfileTop = styled.div`
+  position: relative;
+`;
+
+export const Banner = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 250px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media screen and (max-width: 682px) {
+    height: 170px;
+  }
+`;
+
+export const ProfileDetails = styled.div`
+  position: relative;
+  width: 100%;
+  padding: 16px;
+  background: #fff;
+  border-radius: 12px;
+  margin-top: 180px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  @media screen and (max-width: 682px) {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 90px;
+  }
+`;
+
+export const Details = styled.div`
+  display: flex;
+  gap: 15px;
+
+  @media screen and (max-width: 682px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+
+    p {
+      text-align: center;
+    }
+  }
+`;
+
+export const DetailTop = styled.div`
+  display: flex;
+  gap: 15px;
+
+  @media screen and (max-width: 682px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+`;
+
+export const Avatar = styled.div`
+  margin-top: -50px;
+  padding: 3px;
+  background: #fff;
+  border-radius: 4px;
+  img {
+    width: 120px;
+    height: 120px;
+    border-radius: 4px;
+  }
+`;
+
+export const Overylay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  opacity: 0.75;
+  z-index: 2;
+`;
+
+export const EditProfileWrapper = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+`;
+
+export const EditProfileCard = styled.div` 
+height:500px;
+width:600px; 
+box-sizing:border-box;
+background:#fff;
+border-radius:4px; 
+overflow-Y:scroll;
+padding-bottom:20px; 
+animation:0.5s ${enter} forwards;
+  .header{
+    padding 12px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    position:sticky;
+    top:0;
+    left:0;
+    z-index:5;
+    background:#fff;
+
+    svg{
+      font-size:1.2rem;
+      color:${(props) => props.theme.color.text4};
+      cursor:pointer;
+    }
+  }
+
+  hr{
+    display: block; 
+    height: 1px;
+    border: 0; 
+    border-top: 1px solid ${(props) => props.theme.color.text7};
+    margin: auto; 
+    padding: 0;
+    width:95%;
+  }
+
+  .banner{
+    position:relative;
+    width:100%;
+    height:130px;
+    display:flex;
+    align-item:center;
+    justify-content:center;
+
+    .overlay{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: #000;
+    opacity: 0.5;
+    z-index:3;
+    }
+
+    img{
+    object-fit:cover;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:2;
+  }
+
+  .icons{
+    z-index:4;
+    display:flex;
+    align-items:center; 
+    svg{
+    color:${(props) => props.theme.color.white}};
+    cursor:pointer;
+  }
+  }
+
+  .avatar{
+    position:relative;
+    height:135px;
+    width:135px;
+    border-radius:50%;
+    margin-top:-40px;
+    border:4px solid #fff;
+    z-index:3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    .overlay{
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      background: #000;
+      opacity: 0.5;
+      z-index:4;
+      border-radius:50%;
+      }
+    img{
+      object-fit:cover;
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      border-radius:50%;
+      
+    }
+    svg{
+      z-index:5;
+      color:${(props) => props.theme.color.white}};
+      cursor:pointer;
+    }
+  }
+
+  @media screen and (max-width: 616px) { 
+    width:90%; 
   }
 `;

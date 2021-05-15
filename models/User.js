@@ -18,6 +18,14 @@ const UserSchema = mongoose.Schema(
       type: String,
       default: "No bio yet",
     },
+    location: {
+      type: String,
+      default: "",
+    },
+    website: {
+      type: String,
+      default: "",
+    },
     avatar: {
       type: String,
       default: null,

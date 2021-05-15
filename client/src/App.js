@@ -6,10 +6,13 @@ import Register from "./components/auth/Register";
 import Home from "./components/main/Home";
 import Explore from "./components/main/Explore";
 import Bookmarks from "./components/main/Bookmarks";
+import Profile from "./components/main/Profile";
+import Timeline from "./components/main/Timeline";
 import { ThemeProvider } from "styled-components";
 import "./css/main.css";
 import store from "./store";
 import { Provider } from "react-redux";
+import { MainContainer } from "./components/styled_components/components";
 
 function App() {
   const theme = {
@@ -23,6 +26,7 @@ function App() {
       text4: "#333",
       text5: "#BDBDBD",
       text6: "#999",
+      text7: "#E0E0E0",
       white: "#fff",
       danger: "#ef5350",
     },
@@ -36,9 +40,12 @@ function App() {
             <Route exact path="/register" component={Register} />
             <Fragment>
               <NavBar />
-              <Route exact path="/" component={Home} />
-              <Route exact path="/explore" component={Explore} />
-              <Route exact path="/bookmarks" component={Bookmarks} />
+              <Route exact path="/profile/:id" component={Profile} />
+              <MainContainer>
+                <Route exact path="/" component={Timeline} />
+                <Route exact path="/explore" component={Explore} />
+                <Route exact path="/bookmarks" component={Bookmarks} />
+              </MainContainer>
             </Fragment>
           </Switch>
         </Router>
