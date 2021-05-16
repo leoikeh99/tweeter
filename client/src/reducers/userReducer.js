@@ -1,9 +1,17 @@
-import { GET_USER, GET_USER_FAIL, SET_USER_LOADER } from "../actions/types";
+import { v4 as uuidv4 } from "uuid";
+import {
+  GET_USER,
+  GET_USER_FAIL,
+  SET_LOADER,
+  UPDATE_USER,
+  UPDATE_USER_FAIL,
+} from "../actions/types";
 
 const initialState = {
-  loader: false,
+  loader: { type: null },
   alert: null,
   user: null,
+  alert: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -11,33 +19,38 @@ const userReducer = (state = initialState, action) => {
     case GET_USER:
       return {
         ...state,
-        loader: false,
+        loader: { ...state.loader, type: null },
         user: action.payload,
       };
 
     case GET_USER_FAIL:
       return {
         ...state,
-        loader: false,
+        loader: { ...state.loader, type: null },
         user: null,
+        alert: action.payload,
       };
 
-    // case SET_ALERT:
-    //   return {
-    //     ...state,
-    //     alert: action.payload,
-    //   };
-
-    // case CLEAR_ALERT:
-    //   return {
-    //     ...state,
-    //     alert: null,
-    //   };
-
-    case SET_USER_LOADER:
+    case UPDATE_USER_FAIL:
       return {
         ...state,
-        loader: true,
+        loader: { ...state.loader, type: null },
+        alert: action.payload,
+      };
+
+    case UPDATE_USER: {
+      return {
+        ...state,
+        loader: { ...state.loader, type: null },
+        user: action.payload,
+        alert: { id: uuidv4(), type: "success", msg: "Updated successfully" },
+      };
+    }
+
+    case SET_LOADER:
+      return {
+        ...state,
+        loader: { ...state.loader, type: action.payload },
       };
 
     default:

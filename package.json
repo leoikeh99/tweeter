@@ -23,6 +23,7 @@
     "express-validator": "^6.11.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.8",
-    "qs": "^6.10.1"
+    "qs": "^6.10.1",
+    "uuid": "^8.3.2"
   }
 }

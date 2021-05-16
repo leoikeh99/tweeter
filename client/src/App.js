@@ -13,6 +13,7 @@ import "./css/main.css";
 import store from "./store";
 import { Provider } from "react-redux";
 import { MainContainer } from "./components/styled_components/components";
+import Alerts from "./components/layout/Alerts";
 
 function App() {
   const theme = {
@@ -29,6 +30,7 @@ function App() {
       text7: "#E0E0E0",
       white: "#fff",
       danger: "#ef5350",
+      success: "green",
     },
   };
   return (
@@ -42,6 +44,11 @@ function App() {
               <NavBar />
               <Route exact path="/profile/:id" component={Profile} />
               <MainContainer>
+                <Alerts
+                  exact
+                  path={["/", "/profile/:id", "/explore", "/bookmarks"]}
+                  component={NavBar}
+                />
                 <Route exact path="/" component={Timeline} />
                 <Route exact path="/explore" component={Explore} />
                 <Route exact path="/bookmarks" component={Bookmarks} />

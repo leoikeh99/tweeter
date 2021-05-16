@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { spin, enter } from "./animations";
+import { spin, enter, inOut } from "./animations";
 import { Link } from "react-router-dom";
 
 export const Text = styled.p`
@@ -463,4 +463,26 @@ animation:0.5s ${enter} forwards;
   @media screen and (max-width: 616px) { 
     width:90%; 
   }
+`;
+
+export const AlertsView = styled.div`
+  position: fixed;
+  top: 70px;
+  right: 10px;
+  width: 250px;
+  z-index: 10;
+`;
+
+export const Alert2 = styled.div`
+  max-width: 250px;
+  padding: 10px;
+  background: ${(props) => props.color && props.theme.color[props.color]};
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-family: poppins;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  animation: 4s ${inOut} forwards;
 `;

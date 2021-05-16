@@ -17,3 +17,20 @@ export const enter = keyframes`{
         transform:translateY(0);
     }
 }`;
+
+export const inOut = keyframes`{
+    0%{
+        opacity:1;
+        transform:translateX(100px);
+    }
+    3%{
+
+        transform:translateX(0);
+    }
+    80%{
+        opacity:1;
+    }
+    100%{
+        opacity:0;
+    }
+}`;
