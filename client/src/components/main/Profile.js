@@ -14,15 +14,16 @@ import {
   Details,
 } from "../styled_components/components";
 import { connect } from "react-redux";
-import { getUser } from "../../actions/userActions";
+import { getUser, getProfile } from "../../actions/userActions";
 import { FaRegEdit } from "react-icons/fa";
 import { RiUserAddFill } from "react-icons/ri";
 import EditProfile from "./EditProfile";
 
 const Profile = ({
-  userData: { user, loader },
+  userData: { user, loader, profile },
   getUser,
   match: { params },
+  getProfile,
 }) => {
   const [edit, setEdit] = useState(null);
   useEffect(() => {
@@ -31,13 +32,21 @@ const Profile = ({
     }
   }, [user]);
 
+  useEffect(() => {
+    getProfile(params.id);
+  }, [params]);
+
   return (
     <Fragment>
       {edit && <EditProfile setEdit={setEdit} />}
       <ProfileTop>
         <Banner>
           <img
-            src="https://images.unsplash.com/photo-1620881214599-9bfcbed0acfb?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=70"
+            src={`${
+              user && user.banner
+                ? user.banner
+                : "https://source.unsplash.com/random/1550x400"
+            }`}
             alt=""
           />
         </Banner>
@@ -47,14 +56,20 @@ const Profile = ({
             <Fragment>
               <Details>
                 <Avatar>
-                  <img
-                    src="https://images.unsplash.com/photo-1600002716779-8ea1365b931d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODZ8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60"
-                    alt="av"
-                  />
+                  {profile && profile.avatar ? (
+                    <img src={profile.avatar} alt="av" />
+                  ) : (
+                    <img
+                      src="https://source.unsplash.com/random/400x400"
+                      alt=""
+                    />
+                  )}
                 </Avatar>
                 <div>
                   <DetailTop>
-                    <Header3 color="text4">Leonard Ikeh</Header3>
+                    <Header3 color="text4">
+                      {profile && profile.username}
+                    </Header3>
                     <FlexGap gap={20}>
                       <Text
                         size={14}
@@ -80,8 +95,7 @@ const Profile = ({
                     maxWidth={500}
                     size={15}
                   >
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Fugit laborum natus minus excepturi dicta.
+                    {profile && profile.bio}
                   </Text>
                 </div>
               </Details>
@@ -108,4 +122,4 @@ const Profile = ({
 
 const mapStateToProps = (state) => ({ userData: state.userData });
 
-export default connect(mapStateToProps, { getUser })(Profile);
+export default connect(mapStateToProps, { getUser, getProfile })(Profile);

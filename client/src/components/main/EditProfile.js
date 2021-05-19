@@ -11,6 +11,8 @@ import {
   Label,
   Overylay,
   Text,
+  Loader,
+  FileInput,
 } from "../styled_components/components";
 import {
   FaTimes,
@@ -23,34 +25,61 @@ import { FiCamera } from "react-icons/fi";
 import { IoLocationOutline } from "react-icons/io5";
 import { connect } from "react-redux";
 import { setAlert } from "../../actions/alertActions";
-import { updateUser } from "../../actions/userActions";
+import { updateUser, clearAlert } from "../../actions/userActions";
 import { validate } from "../../functions/mainFuctions";
+import { RiLoader3Fill } from "react-icons/ri";
 
 const EditProfile = ({
   setEdit,
   userData: { user, loader, alert },
   updateUser,
   setAlert,
+  clearAlert,
 }) => {
   const [update, setUpdate] = useState(user);
   const [validation, setValidation] = useState(null);
+  const [selectedBanner, setSelectedBanner] = useState(null);
+  const [selectedAvatar, setSelectedAvatar] = useState(null);
+  const [showBanner, setShowBanner] = useState(true);
 
   const onChange = (e) =>
     setUpdate({ ...update, [e.target.name]: e.target.value });
 
   const submit = (e) => {
     e.preventDefault();
-    console.log(validate(update));
     if (!validate(update).value) {
       setValidation(validate(update).msg);
     } else {
-      updateUser(update);
+      updateUser({
+        ...update,
+        newAvatar: selectedAvatar,
+        newBanner: selectedBanner,
+        removeBanner: !showBanner,
+      });
     }
+  };
+
+  const selectAvatar = () => document.getElementById("avatar").click();
+  const selectBanner = () => document.getElementById("banner").click();
+
+  const avatarInputChange = (e) => {
+    const avatar = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(avatar);
+    reader.onloadend = () => setSelectedAvatar(reader.result);
+  };
+
+  const bannerInputChange = (e) => {
+    const banner = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(banner);
+    reader.onloadend = () => setSelectedBanner(reader.result);
   };
 
   useEffect(() => {
     if (alert) {
       setAlert(alert);
+      clearAlert();
     }
   }, [alert]);
   return (
@@ -66,28 +95,53 @@ const EditProfile = ({
 
           <div className="banner">
             <div className="overlay"></div>
-            <img
-              src="https://images.unsplash.com/photo-1620881214599-9bfcbed0acfb?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=70"
-              alt=""
-            />
+            {!showBanner ? (
+              <div></div>
+            ) : !selectedBanner && !user.banner ? (
+              <img src="https://source.unsplash.com/random/1550x400" alt="" />
+            ) : !selectedBanner && user.banner ? (
+              <img src={user.banner}></img>
+            ) : (
+              <img src={selectedBanner}></img>
+            )}
             <div className="icons">
               <FlexGap gap={30}>
-                <FiCamera />
-                <FaTimes />
+                <FiCamera onClick={selectBanner} />
+                <FaTimes
+                  onClick={() => {
+                    setSelectedBanner(null);
+                    setShowBanner(false);
+                  }}
+                />
               </FlexGap>
             </div>
           </div>
           <Container mw={95}>
             <div className="avatar">
               <div className="overlay"></div>
-              <img
-                src="https://images.unsplash.com/photo-1600002716779-8ea1365b931d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8ODZ8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60"
-                alt=""
-              />
-              <FiCamera />
+              {!selectedAvatar && !user.avatar ? (
+                <img src="https://source.unsplash.com/random/400x400" alt="" />
+              ) : !selectedAvatar && user.avatar ? (
+                <img src={user.avatar}></img>
+              ) : (
+                <img src={selectedAvatar}></img>
+              )}
+              <FiCamera onClick={selectAvatar} />
             </div>
             <br />
             <form action="" onSubmit={submit}>
+              <FileInput
+                type="file"
+                name="avatar"
+                id="avatar"
+                onChange={avatarInputChange}
+              ></FileInput>
+              <FileInput
+                type="file"
+                name="banner"
+                id="banner"
+                onChange={bannerInputChange}
+              ></FileInput>
               <Label>Username</Label>
               <Input>
                 <input
@@ -138,7 +192,14 @@ const EditProfile = ({
               )}
               <div style={{ marginBottom: "5px" }}></div>
               <Button>
-                <FaSave /> Save
+                {loader.type === "update" ? (
+                  <Loader>
+                    <RiLoader3Fill />
+                  </Loader>
+                ) : (
+                  <FaSave />
+                )}{" "}
+                Save
               </Button>
             </form>
           </Container>
@@ -150,4 +211,8 @@ const EditProfile = ({
 
 const mapStateToProps = (state) => ({ userData: state.userData });
 
-export default connect(mapStateToProps, { updateUser, setAlert })(EditProfile);
+export default connect(mapStateToProps, {
+  updateUser,
+  setAlert,
+  clearAlert,
+})(EditProfile);

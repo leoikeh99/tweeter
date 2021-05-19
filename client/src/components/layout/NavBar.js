@@ -7,9 +7,13 @@ import {
   SpaceOut,
   Text,
   MainNav,
+  ButtonLink,
 } from "../styled_components/components";
+import { connect } from "react-redux";
+import { RiLoginBoxLine } from "react-icons/ri";
+import { FaAngleDown } from "react-icons/fa";
 
-const NavBar = ({ match }) => {
+const NavBar = ({ user }) => {
   const history = useHistory();
   const [active, setActive] = useState(1);
 
@@ -49,16 +53,33 @@ const NavBar = ({ match }) => {
             </li>
           </MainNav>
 
-          <FlexGap gap={5}>
-            <img src="" alt="av" />
-            <Text weight={700} margin={0}>
-              Leonard
-            </Text>
-          </FlexGap>
+          {user ? (
+            <FlexGap gap={5} align="center" cursor="pointer">
+              <img
+                src={
+                  user.avatar
+                    ? user.avatar
+                    : "https://source.unsplash.com/random/400x400"
+                }
+                alt="av"
+                style={{ height: "35px", width: "35px", borderRadius: "4px" }}
+              />
+              <Text weight={700} margin={0}>
+                {user.username}
+              </Text>
+              <FaAngleDown />
+            </FlexGap>
+          ) : (
+            <ButtonLink to="/login" padding="5px 20px" br="20px">
+              <RiLoginBoxLine /> Sign In
+            </ButtonLink>
+          )}
         </SpaceOut>
       </Container>
     </nav>
   );
 };
 
-export default NavBar;
+const mapStateToProps = (state) => ({ user: state.userData.user });
+
+export default connect(mapStateToProps, null)(NavBar);

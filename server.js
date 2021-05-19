@@ -4,7 +4,7 @@ const db = require("./config/db");
 
 db();
 
-app.use(express.json({ extended: false }));
+app.use(express.json({ extended: false, limit: "50mb" }));
 
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/user", require("./routes/user"));

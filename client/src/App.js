@@ -30,7 +30,7 @@ function App() {
       text7: "#E0E0E0",
       white: "#fff",
       danger: "#ef5350",
-      success: "green",
+      success: "#1de9b6",
     },
   };
   return (

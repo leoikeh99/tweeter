@@ -23,6 +23,8 @@ export const CenterWrapper = styled.div`
 export const FlexGap = styled.div`
   display: flex;
   gap: ${(props) => (props.gap ? props.gap : 10)}px;
+  align-items: ${(props) => props.align && props.align};
+  cursor: ${(props) => props.cursor && props.cursor};
 `;
 
 export const SpaceOut = styled.div`
@@ -100,6 +102,12 @@ export const Input = styled.div`
   }
 `;
 
+export const FileInput = styled.input`
+  height: 0;
+  width: 0;
+  overflow: hidden;
+`;
+
 export const Button = styled.button`
   padding: 12px 25px;
   background: ${(props) => props.theme.color.primary};
@@ -165,6 +173,18 @@ export const StyledLink = styled(Link)`
   font-family: ${(props) => props.theme.font1};
   text-decoration: none;
   color: ${(props) => props.theme.color.primary};
+`;
+
+export const ButtonLink = styled(Link)`
+  font-family: ${(props) => props.theme.font1};
+  text-decoration: none;
+  color: #fff;
+  padding: ${(props) => props.padding && props.padding};
+  border-radius: ${(props) => props.br && props.br};
+  background: ${(props) => props.theme.color.primary};
+  display: flex;
+  align-items: center;
+  gap: 4px;
 `;
 
 export const Small = styled.small`
@@ -251,11 +271,14 @@ export const Banner = styled.div`
   left: 0;
   width: 100%;
   height: 250px;
+  box-sizing: border-box;
+  margin-top: 1px;
 
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    box-sizing: border-box;
   }
 
   @media screen and (max-width: 682px) {
@@ -327,7 +350,7 @@ export const Overylay = styled.div`
   width: 100%;
   height: 100vh;
   background: #000;
-  opacity: 0.75;
+  opacity: 0.8;
   z-index: 2;
 `;
 

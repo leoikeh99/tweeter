@@ -1,5 +1,9 @@
 import { v4 as uuidv4 } from "uuid";
 import {
+  CLEAR_ALERT,
+  CLEAR_BANNER,
+  GET_PROFILE,
+  GET_PROFILE_FAIL,
   GET_USER,
   GET_USER_FAIL,
   SET_LOADER,
@@ -11,6 +15,7 @@ const initialState = {
   loader: { type: null },
   alert: null,
   user: null,
+  profile: null,
   alert: null,
 };
 
@@ -44,8 +49,32 @@ const userReducer = (state = initialState, action) => {
         loader: { ...state.loader, type: null },
         user: action.payload,
         alert: { id: uuidv4(), type: "success", msg: "Updated successfully" },
+        profile: state.profile._id === action.payload._id && {
+          ...state.profile,
+          ...action.payload,
+        },
       };
     }
+
+    case GET_PROFILE:
+      return {
+        ...state,
+        loader: { ...state.loader, type: null },
+        profile: action.payload,
+      };
+
+    case GET_PROFILE_FAIL:
+      return {
+        ...state,
+        loader: { ...state.loader, type: null },
+        profile: null,
+      };
+
+    case CLEAR_ALERT:
+      return {
+        ...state,
+        alert: null,
+      };
 
     case SET_LOADER:
       return {

@@ -30,6 +30,18 @@ const UserSchema = mongoose.Schema(
       type: String,
       default: null,
     },
+    banner: {
+      type: String,
+      default: null,
+    },
+    cloudinaryId: {
+      type: String,
+      default: null,
+    },
+    bannerId: {
+      type: String,
+      default: null,
+    },
   },
   {
     timestamps: true,
