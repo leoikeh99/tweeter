@@ -30,7 +30,7 @@ const Login = ({
       <h1 className="font-poppins font-semibold text-2xl mb-5">
         Login to Tweeter
       </h1>
-      <div className="p-3  sm:border-2 border-primary rounded w-11/12 sm:w-96">
+      <div className="p-5  sm:border-2 border-primary rounded w-11/12 sm:w-96">
         <div style={{ marginBottom: "5px" }}></div>
         {alert && alert.type === "error" && (
           <Alert>

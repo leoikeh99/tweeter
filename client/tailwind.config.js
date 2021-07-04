@@ -17,6 +17,9 @@ module.exports = {
         gray3: "#828282",
         gray4: "#999",
       },
+      borderWidth: {
+        3: "3px",
+      },
     },
     fontFamily: {
       poppins: ["Poppins"],
