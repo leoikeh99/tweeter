@@ -10,4 +10,7 @@ const validate = ({ username, password, email }) => {
   }
 };
 
-export { validate };
+const truncate = (string) =>
+  string.length > 6 ? string.substr(0, 6) + "..." : string;
+
+export { validate, truncate };

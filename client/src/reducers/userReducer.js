@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import {
   CLEAR_ALERT,
   CLEAR_BANNER,
+  FOLLOW,
   GET_PROFILE,
   GET_PROFILE_FAIL,
   GET_USER,
@@ -68,6 +69,13 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loader: { ...state.loader, type: null },
         profile: null,
+      };
+
+    case FOLLOW:
+      return {
+        ...state,
+        loader: { ...state.loader, type: null },
+        profile: { ...state.profile, following: true },
       };
 
     case CLEAR_ALERT:

@@ -259,6 +259,9 @@ export const MainNav = styled.ul`
       }
     }
   }
+  @media screen and (max-width: 530px) {
+    display: none;
+  }
 `;
 
 export const ProfileTop = styled.div`

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import logo1 from "../../images/logo1.svg";
+import logo3 from "../../images/logo3.svg";
 import {
   Container,
   FlexGap,
@@ -12,6 +13,7 @@ import {
 import { connect } from "react-redux";
 import { RiLoginBoxLine } from "react-icons/ri";
 import { FaAngleDown } from "react-icons/fa";
+import { truncate } from "../../functions/mainFuctions";
 
 const NavBar = ({ user }) => {
   const history = useHistory();
@@ -33,11 +35,12 @@ const NavBar = ({ user }) => {
     <nav>
       <Container>
         <SpaceOut>
-          <img src={logo1} alt="" />
+          <img src={logo1} alt="" className="big-logo" />
+          <img src={logo3} alt="" className="small-logo" />
 
           <MainNav active={active}>
             <li>
-              <Link to="/">
+              <Link to="/" className="text-decoration: none">
                 Home <span></span>
               </Link>
             </li>
@@ -65,7 +68,7 @@ const NavBar = ({ user }) => {
                 style={{ height: "35px", width: "35px", borderRadius: "4px" }}
               />
               <Text weight={700} margin={0}>
-                {user.username}
+                {truncate(user.username)}
               </Text>
               <FaAngleDown />
             </FlexGap>

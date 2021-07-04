@@ -12,11 +12,12 @@ import {
   Text,
   Header3,
   Details,
+  ButtonLink,
 } from "../styled_components/components";
 import { connect } from "react-redux";
-import { getUser, getProfile } from "../../actions/userActions";
+import { getUser, getProfile, follow } from "../../actions/userActions";
 import { FaRegEdit } from "react-icons/fa";
-import { RiUserAddFill } from "react-icons/ri";
+import { RiUserAddFill,RiUserMi } from "react-icons/ri";
 import EditProfile from "./EditProfile";
 
 const Profile = ({
@@ -24,6 +25,7 @@ const Profile = ({
   getUser,
   match: { params },
   getProfile,
+  follow,
 }) => {
   const [edit, setEdit] = useState(null);
   useEffect(() => {
@@ -100,7 +102,7 @@ const Profile = ({
                 </div>
               </Details>
             </Fragment>
-            {user && user._id === params.id ? (
+            {!user ? null : user && user._id === params.id ? (
               <Button
                 color="primary"
                 padding={"6px 25px"}
@@ -108,11 +110,19 @@ const Profile = ({
               >
                 <FaRegEdit /> Edit
               </Button>
-            ) : (
-              <Button color="primary" padding={"6px 25px"}>
+            ) : profile && !profile.following ? (
+              <Button
+                color="primary"
+                padding={"6px 25px"}
+                onClick={() => follow(profile._id)}
+              >
                 <RiUserAddFill /> Follow
               </Button>
-            )}
+            ) : profile && profile.following ? (
+              <Button color="primary" padding={"6px 25px"}>
+                <RiUserAddFill /> Unfollow
+              </Button>
+            ) : null}
           </ProfileDetails>
         </MainContainer>
       </ProfileTop>
@@ -122,4 +132,6 @@ const Profile = ({
 
 const mapStateToProps = (state) => ({ userData: state.userData });
 
-export default connect(mapStateToProps, { getUser, getProfile })(Profile);
+export default connect(mapStateToProps, { getUser, getProfile, follow })(
+  Profile
+);

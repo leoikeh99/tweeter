@@ -1,3 +1,13 @@
+/* @media screen and (max-width: 600px) {
+  nav .big-logo {
+    display: none; }
+  nav .small-logo {
+    display: block !important; } }
+
+@media screen and (max-width: 530px) {
+  nav {
+    padding: 12px 0; } }
+
 body {
   background: #f2f2f2;
   margin: 0;
@@ -12,6 +22,33 @@ nav {
       list-style: none;
       margin: 0;
       padding: 0; }
+  nav .small-logo {
+    display: none; }
 
 a {
-  text-decoration: none; }
+  text-decoration: none; } */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+*,
+*:focus {
+  outline: none !important;
+}
+
+body {
+  font-family: "Noto Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+}

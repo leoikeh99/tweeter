@@ -1,19 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  CenterWrapper,
-  LoginContainer,
-  Label,
-  Input,
-  Button,
-  Header3,
-  StyledLink,
-  Small,
-  Alert,
-  Text,
-  Loader,
-} from "../styled_components/components";
-import { RiLoginBoxLine as LoginIcon, RiLoader3Fill } from "react-icons/ri";
-import { FaEnvelope, FaLock, FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { Alert, Text } from "../styled_components/components";
+import { FaTimes } from "react-icons/fa";
 import { connect } from "react-redux";
 import { authUser, clearAlert } from "../../actions/authActions";
 import logo3 from "../../images/logo3.svg";
@@ -37,10 +25,12 @@ const Login = ({
   }, [token, history]);
 
   return (
-    <CenterWrapper>
-      <LoginContainer>
-        <img src={logo3} alt="" />
-        <Header3 color={"text4"}>Login to Tweeter</Header3>
+    <div className="h-screen w-full flex items-center justify-center flex-col">
+      <img src={logo3} alt="" />
+      <h1 className="font-poppins font-semibold text-2xl mb-5">
+        Login to Tweeter
+      </h1>
+      <div className="p-3  sm:border-2 border-primary rounded w-11/12 sm:w-96">
         <div style={{ marginBottom: "5px" }}></div>
         {alert && alert.type === "error" && (
           <Alert>
@@ -50,21 +40,25 @@ const Login = ({
         )}
         <div style={{ marginBottom: "5px" }}></div>
         <form action="" onSubmit={submit}>
-          <Label>Email</Label>
-          <Input>
+          <label className="font-poppins text-gray1 font-semibold">Email</label>
+
+          <div className="px-3 border-2 border-gray4 rounded flex items-center justify-between focus-within:border-primary mb-3">
             <input
+              className="h-11 w-11/12"
               type="email"
               required
               value={data.email}
               onChange={(e) => setData({ ...data, email: e.target.value })}
               name="email"
             />
-            <FaEnvelope />
-          </Input>
-          <br />
-          <Label>Password</Label>
-          <Input>
+            <i class="fas fa-envelope text-gray4 text-xl"></i>
+          </div>
+          <label className="font-poppins text-gray1 font-semibold">
+            Password
+          </label>
+          <div className="px-3 border-2 border-gray4 rounded flex items-center justify-between focus-within:border-primary mb-3">
             <input
+              className="h-11 w-11/12"
               type="password"
               required
               minLength={6}
@@ -72,25 +66,25 @@ const Login = ({
               onChange={(e) => setData({ ...data, password: e.target.value })}
               name="password"
             />
-            <FaLock />
-          </Input>
-          <br />
-          <Button fullWidth>
-            {loader ? (
-              <Loader>
-                <RiLoader3Fill />
-              </Loader>
+            <i class="fas fa-lock text-gray4 text-xl"></i>
+          </div>
+          <button className="w-full py-2.5 flex items-center justify-center gap-2 bg-primary text-white rounded">
+            {!loader ? (
+              <i class="fas fa-sign-in-alt"></i>
             ) : (
-              <LoginIcon />
+              <i class="fas fa-circle-notch animate-spin"></i>
             )}
             LOGIN
-          </Button>
+          </button>
         </form>
-        <Small>
-          Don't have an account? <StyledLink to="/register">Sign-up</StyledLink>
-        </Small>
-      </LoginContainer>
-    </CenterWrapper>
+        <small className="block mt-2">
+          Don't have an account?{" "}
+          <Link to="/register" className="text-primary">
+            Sign-up
+          </Link>
+        </small>
+      </div>
+    </div>
   );
 };
 

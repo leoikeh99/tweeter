@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const mongoose = require("mongoose");
 
 const User = require("../models/User");
+const Follows = require("../models/Follows");
+const getUserId = require("../middleware/getUserId");
 const auth = require("../middleware/auth");
 const { cloudinary } = require("../config/cloudinary");
 
@@ -97,16 +98,24 @@ router.put("/", auth, async (req, res) => {
   }
 });
 
-router.get("/profile/:id", async (req, res) => {
+router.get("/profile/:id", getUserId, async (req, res) => {
   const id = req.params.id;
-
+  const follower = req.user.id;
   try {
     const profile = await User.findById(id);
+    var following = false;
     if (!profile) {
       return res.status(400).json({ msg: "Not a user" });
     }
 
-    res.json(profile);
+    if (follower) {
+      const checkFollows = await Follows.findOne({ follower, following: id });
+      if (checkFollows) {
+        following = true;
+      }
+    }
+
+    res.json({ ...profile._doc, following });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ msg: "Server error" });

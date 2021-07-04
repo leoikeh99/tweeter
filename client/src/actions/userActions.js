@@ -9,6 +9,7 @@ import {
   GET_PROFILE,
   GET_PROFILE_FAIL,
   CLEAR_BANNER,
+  FOLLOW,
 } from "./types";
 import setAuthToken from "../functions/setAuthToken";
 import { v4 as uuidv4 } from "uuid";
@@ -61,4 +62,19 @@ export const getProfile = (id) => async (dispatch) => {
 
 export const clearAlert = () => {
   return { type: CLEAR_ALERT };
+};
+
+export const follow = (id) => async (dispatch) => {
+  if (localStorage.getItem("token")) {
+    setAuthToken(localStorage.getItem("token"));
+  }
+  const config = { headers: { "Content-Type": "application/json" } };
+
+  try {
+    dispatch({ type: SET_LOADER, payload: id });
+    const res = await axios.post("/api/follows", { id }, config);
+    dispatch({ type: FOLLOW, payload: res.data });
+  } catch (err) {
+    dispatch({ type: SET_LOADER, payload: null });
+  }
 };
