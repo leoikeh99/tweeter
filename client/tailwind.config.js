@@ -17,8 +17,11 @@ module.exports = {
         gray3: "#828282",
         gray4: "#999",
       },
-      borderWidth: {
-        3: "3px",
+      maxWidth: {
+        "1/4": "25%",
+        "1/2": "50%",
+        "3/4": "75%",
+        "9/10": "90%",
       },
     },
     fontFamily: {
