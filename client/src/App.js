@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavBar from "./components/layout/NavBar";
+import BottomNav from "./components/layout/BottomNav";
 import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Home from "./components/main/Home";
@@ -53,6 +54,7 @@ function App() {
                 <Route exact path="/explore" component={Explore} />
                 <Route exact path="/bookmarks" component={Bookmarks} />
               </MainContainer>
+              <BottomNav />
             </Fragment>
           </Switch>
         </Router>

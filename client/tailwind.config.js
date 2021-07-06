@@ -16,6 +16,7 @@ module.exports = {
         gray2: "#4F4F4F",
         gray3: "#828282",
         gray4: "#999",
+        gray5: "#f2f2f2",
       },
       maxWidth: {
         "1/4": "25%",
