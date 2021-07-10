@@ -32,7 +32,7 @@ const NavBar = ({ user }) => {
     });
   }, [history]);
   return (
-    <nav className="bg-white  py-5 fixed w-full">
+    <nav className="bg-white  py-5 fixed w-full top-0 left-0 z-10">
       <div className="max-w-9/10 m-auto">
         <div className="flex items-center justify-between">
           <img src={logo1} alt="" className="hidden sm:block" />

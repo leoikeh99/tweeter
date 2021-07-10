@@ -44,16 +44,14 @@ function App() {
             <Fragment>
               <NavBar />
               <Route exact path="/profile/:id" component={Profile} />
-              <MainContainer>
-                <Alerts
-                  exact
-                  path={["/", "/profile/:id", "/explore", "/bookmarks"]}
-                  component={NavBar}
-                />
-                <Route exact path="/" component={Timeline} />
-                <Route exact path="/explore" component={Explore} />
-                <Route exact path="/bookmarks" component={Bookmarks} />
-              </MainContainer>
+              <Alerts
+                exact
+                path={["/", "/profile/:id", "/explore", "/bookmarks"]}
+                component={NavBar}
+              />
+              <Route exact path="/" component={Timeline} />
+              <Route exact path="/explore" component={Explore} />
+              <Route exact path="/bookmarks" component={Bookmarks} />
               <BottomNav />
             </Fragment>
           </Switch>

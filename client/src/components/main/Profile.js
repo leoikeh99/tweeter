@@ -1,23 +1,7 @@
-import React, { Fragment, useEffect, useState } from "react";
-import {
-  Banner,
-  Button,
-  FlexGap,
-  MainContainer,
-  ProfileDetails,
-  ProfileTop,
-  Small,
-  DetailTop,
-  Avatar,
-  Text,
-  Header3,
-  Details,
-  ButtonLink,
-} from "../styled_components/components";
+import React, { useEffect, useState } from "react";
+import { Fragment } from "react";
 import { connect } from "react-redux";
 import { getUser, getProfile, follow } from "../../actions/userActions";
-import { FaRegEdit } from "react-icons/fa";
-import { RiUserAddFill,RiUserMi } from "react-icons/ri";
 import EditProfile from "./EditProfile";
 
 const Profile = ({
@@ -41,91 +25,83 @@ const Profile = ({
   return (
     <Fragment>
       {edit && <EditProfile setEdit={setEdit} />}
-      <ProfileTop>
-        <Banner>
-          <img
-            src={`${
-              user && user.banner
-                ? user.banner
-                : "https://source.unsplash.com/random/1550x400"
-            }`}
-            alt=""
-          />
-        </Banner>
-
-        <MainContainer>
-          <ProfileDetails>
-            <Fragment>
-              <Details>
-                <Avatar>
+      <div className="relative md:pt-64 sm:pt-52 pt-48">
+        <img
+          src={`${
+            profile && profile.banner
+              ? profile.banner
+              : "https://source.unsplash.com/random/1550x400"
+          }`}
+          alt=""
+          className="h-60 w-full absolute left-0 mt-20 -top-1 object-cover"
+        />
+        <div className="max-w-9.7/10 sm:max-w-container m-auto sm:px-10">
+          <div className="p-4 relative z-0 bg-white rounded-lg pb-7 shadow-1 w-full">
+            <div className="flex md:justify-between md:flex-row flex-col items-center">
+              <div className="flex gap-3  md:flex-row flex-col items-center">
+                <div className="p-1 bg-white rounded -mt-16 inline-block">
                   {profile && profile.avatar ? (
-                    <img src={profile.avatar} alt="av" />
+                    <img
+                      src={profile.avatar}
+                      alt="av"
+                      className="h-32 w-32 rounded"
+                    />
                   ) : (
                     <img
                       src="https://source.unsplash.com/random/400x400"
                       alt=""
+                      className="h-32 w-32 rounded"
                     />
                   )}
-                </Avatar>
-                <div>
-                  <DetailTop>
-                    <Header3 color="text4">
-                      {profile && profile.username}
-                    </Header3>
-                    <FlexGap gap={20}>
-                      <Text
-                        size={14}
-                        margin={"5px 0 0 0"}
-                        weight={600}
-                        color="text4"
-                      >
-                        300<Small color="text3"> Followers</Small>
-                      </Text>
-                      <Text
-                        size={14}
-                        margin={"5px 0 0 0 "}
-                        weight={600}
-                        color="text4"
-                      >
-                        250<Small color="text3"> Following</Small>
-                      </Text>
-                    </FlexGap>
-                  </DetailTop>
-                  <Text
-                    color={"text3"}
-                    margin={"15px 0"}
-                    maxWidth={500}
-                    size={15}
-                  >
-                    {profile && profile.bio}
-                  </Text>
                 </div>
-              </Details>
-            </Fragment>
-            {!user ? null : user && user._id === params.id ? (
-              <Button
-                color="primary"
-                padding={"6px 25px"}
-                onClick={() => setEdit(true)}
-              >
-                <FaRegEdit /> Edit
-              </Button>
-            ) : profile && !profile.following ? (
-              <Button
-                color="primary"
-                padding={"6px 25px"}
-                onClick={() => follow(profile._id)}
-              >
-                <RiUserAddFill /> Follow
-              </Button>
-            ) : profile && profile.following ? (
-              <Button color="primary" padding={"6px 25px"}>
-                <RiUserAddFill /> Unfollow
-              </Button>
-            ) : null}
-          </ProfileDetails>
-        </MainContainer>
-      </ProfileTop>
+                <div>
+                  <div className="flex md:gap-5 md:items-center md:flex-row flex-col gap-2 items-center">
+                    <p className="font-poppins text-gray1 font-semibold text-xl">
+                      Daniel Jensen
+                    </p>
+                    <div>
+                      <p className="font-poppins text-gray1 font-semibold inline mr-1 text-sm">
+                        2,300
+                        <span className="font-poppins text-gray3 text-xs">
+                          {" "}
+                          Following
+                        </span>
+                      </p>
+                      <p className="font-poppins text-gray1 font-semibold inline ml-1 text-sm">
+                        2,300
+                        <span className="font-poppins text-gray3 text-xs">
+                          {" "}
+                          Followers
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                  <p className="max-w-md text-gray3 mt-4 md:text-left text-center">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Nisi, voluptatibus aliquam.
+                  </p>
+                </div>
+              </div>
+              {!user ? null : user._id === params.id ? (
+                <button
+                  className="md:self-start md:mt-0 self-center mt-3  btn-2 w-24  "
+                  onClick={() => setEdit(true)}
+                >
+                  <i class="fas fa-edit"></i> Edit
+                </button>
+              ) : profile && !profile.following ? (
+                <button className="md:self-start md:mt-0 self-center mt-3  btn-2 w-24">
+                  <i class="fas fa-user-plus"></i> Follow
+                </button>
+              ) : profile && profile.following ? (
+                <button className="md:self-start md:mt-0  mt-3 btn-2 w-24 ">
+                  <i class="fas fa-user-minus"></i> Unfollow
+                </button>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      </div>
     </Fragment>
   );
 };
