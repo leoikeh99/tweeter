@@ -61,3 +61,11 @@ body {
 .shadow-1 {
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
 }
+
+.input-cover {
+  @apply px-3 border-2 border-gray4 rounded flex items-center justify-between focus-within:border-primary;
+}
+
+.label {
+  @apply font-poppins text-gray1 font-semibold;
+}

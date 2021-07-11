@@ -32,31 +32,31 @@ const NavBar = ({ user }) => {
     });
   }, [history]);
   return (
-    <nav className="bg-white  py-5 fixed w-full top-0 left-0 z-10">
+    <nav className="bg-white  py-4 fixed w-full top-0 left-0 z-10">
       <div className="max-w-9/10 m-auto">
         <div className="flex items-center justify-between">
           <img src={logo1} alt="" className="hidden sm:block" />
           <img src={logo3} alt="" className="block sm:hidden" />
 
           <ul className="flex items-center gap-7 p-0 m-0 font-poppins hidden md:flex">
-            <li className="relative flex justify-center px-5 pt-1">
+            <li className="relative flex justify-center px-5 pt-2.5">
               <Link
                 to="/"
-                className={`font-medium ${
+                className={`font-medium text-sm ${
                   active === 1 && "text-primary font-semibold"
                 }`}
               >
                 Home
               </Link>
               <div
-                className={`w-full h-1 bg-primary absolute -bottom-6 rounded-tl-md rounded-tr-md ${
+                className={`w-full h-1 bg-primary absolute -bottom-4 rounded-tl-md rounded-tr-md ${
                   active != 1 && "hidden"
                 }`}
               />
             </li>
-            <li className="relative flex justify-center px-5 pt-1">
+            <li className="relative flex justify-center px-5 pt-2.5">
               <Link
-                className={`font-medium  ${
+                className={`font-medium text-sm ${
                   active === 2 && "text-primary font-semibold"
                 }`}
                 to="/explore"
@@ -64,14 +64,14 @@ const NavBar = ({ user }) => {
                 Explore
               </Link>
               <div
-                className={`w-full h-1 bg-primary absolute -bottom-6 rounded-tl-md rounded-tr-md ${
+                className={`w-full h-1 bg-primary absolute -bottom-4 rounded-tl-md rounded-tr-md ${
                   active != 2 && "hidden"
                 }`}
               />
             </li>
-            <li className="relative flex justify-center px-5 pt-1">
+            <li className="relative flex justify-center px-5 pt-2.5">
               <Link
-                className={`font-medium ${
+                className={`font-medium text-sm ${
                   active === 3 && "text-primary font-semibold"
                 }`}
                 to="/bookmarks"
@@ -79,7 +79,7 @@ const NavBar = ({ user }) => {
                 Bookmarks<span></span>
               </Link>
               <div
-                className={`w-full h-1 bg-primary absolute -bottom-6 rounded-tl-md rounded-tr-md ${
+                className={`w-full h-1 bg-primary absolute -bottom-4 rounded-tl-md rounded-tr-md ${
                   active != 3 && "hidden"
                 }`}
               />
@@ -87,7 +87,7 @@ const NavBar = ({ user }) => {
           </ul>
 
           {user ? (
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 cursor-pointer">
               <img
                 src={
                   user.avatar
@@ -95,17 +95,17 @@ const NavBar = ({ user }) => {
                     : "https://source.unsplash.com/random/400x400"
                 }
                 alt="av"
-                className="h-9 w-9 rounded-md"
+                className="h-av w-8 rounded-md"
               />
               <p className="font-bold m-0 sm:block hidden">
                 {truncate(user.username)}
               </p>
-              <FaAngleDown className="sm:block hidden" />
+              <i className="fas fa-angle-down sm:block hidden" />
             </div>
           ) : (
             <Link
               to="/login"
-              className="py-1 px-5 rounded-full flex items-center gap-1 bg-primary text-white"
+              className="py-1 px-5 rounded-full flex items-center gap-1 bg-primary text-white text-sm"
             >
               <RiLoginBoxLine /> Sign In
             </Link>

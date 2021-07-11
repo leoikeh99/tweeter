@@ -5,6 +5,7 @@ module.exports = {
     screens: {
       xsm: "350px",
       sm: "480px",
+      mmd: "615px",
       md: "768px",
       lg: "976px",
       xl: "1440px",
@@ -23,8 +24,16 @@ module.exports = {
         "1/2": "50%",
         "3/4": "75%",
         "9/10": "90%",
+        "9.5/10": "95%",
         "9.7/10": "97%",
         container: "1073px",
+      },
+      height: {
+        av: "31px",
+        card: "500px",
+      },
+      width: {
+        card: "600px",
       },
     },
     fontFamily: {

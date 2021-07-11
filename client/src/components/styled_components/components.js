@@ -424,17 +424,7 @@ animation:0.5s ${enter} forwards;
     background: #000;
     opacity: 0.5;
     z-index:3;
-    }
-
-    img{
-    object-fit:cover;
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:2;
-  }
+    } 
 
   .icons{
     z-index:4;
@@ -496,7 +486,7 @@ export const AlertsView = styled.div`
   top: 70px;
   right: 10px;
   width: 250px;
-  z-index: 10;
+  z-index: 100;
 `;
 
 export const Alert2 = styled.div`
